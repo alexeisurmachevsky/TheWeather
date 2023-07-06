@@ -41,11 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         mService = Common.retrofitService
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        getLocation()
+       // getLocation()
 
 
         binding.rvWeather.layoutManager = LinearLayoutManager(applicationContext,RecyclerView.HORIZONTAL,false)
-
+        binding.currentLocation.setOnClickListener {
+            getLocation()
+        }
     }
 
     private val activity = this
