@@ -7,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.theweather.models.ListInside
 import com.example.theweather.models.fdf
-import com.example.theweather.models.twf
 
 internal class rvAdapter(val wlList:List<fdf>):RecyclerView.Adapter<WeatherHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherHolder {

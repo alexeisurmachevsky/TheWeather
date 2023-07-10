@@ -82,6 +82,7 @@
                 android:drawableTint="@color/black"
                 android:hint="Search city"
                 android:imeOptions="actionSearch"
+                android:inputType="text|textAutoComplete"
                 android:padding="10dp"
                 android:textColor="@color/black">
 
