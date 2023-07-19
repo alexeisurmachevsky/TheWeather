@@ -1,4 +1,4 @@
-package com.example.theweather
+package com.example.theweather.Data
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.theweather.R
 import com.example.theweather.models.fdf
 
 internal class rvAdapter(val wlList:List<fdf>):RecyclerView.Adapter<WeatherHolder>() {
@@ -43,6 +44,3 @@ internal class rvAdapter(val wlList:List<fdf>):RecyclerView.Adapter<WeatherHolde
 }
 
 class WeatherHolder(item: View):ViewHolder(item)
-{
-
-}

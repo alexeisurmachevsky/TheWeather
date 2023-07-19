@@ -1,4 +1,4 @@
-package com.example.theweather
+package com.example.theweather.Data.Retrofit
 
 import com.example.theweather.models.CityInfo
 import com.example.theweather.models.WModel

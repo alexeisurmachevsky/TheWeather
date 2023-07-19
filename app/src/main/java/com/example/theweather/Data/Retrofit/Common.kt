@@ -1,6 +1,4 @@
-package com.example.theweather.Common
-import com.example.theweather.RetrofitServieces
-import com.example.theweather.Utilities.RetrofitClient
+package com.example.theweather.Data.Retrofit
 
 object Common {
     private const val BASE_URL = "https://api.openweathermap.org/"
