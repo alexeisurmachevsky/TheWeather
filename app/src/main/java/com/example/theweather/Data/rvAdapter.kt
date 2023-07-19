@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.theweather.R
@@ -17,7 +19,7 @@ internal class rvAdapter(val wlList:List<fdf>):RecyclerView.Adapter<WeatherHolde
     }
 
     override fun getItemCount(): Int {
-        return 8
+        return wlList.count()
     }
 
     override fun onBindViewHolder(holder: WeatherHolder, position: Int) {
@@ -32,6 +34,19 @@ internal class rvAdapter(val wlList:List<fdf>):RecyclerView.Adapter<WeatherHolde
                 else -> R.drawable.ic_unknown
             }
         )
+        holder.itemView.findViewById<CardView>(R.id.cardView2).setCardBackgroundColor(getColor(holder.itemView.context,
+                when (item.weather[0].main) {
+                    "Clear" -> R.color.clear
+                    "Clouds" -> R.color.clouds
+                    "Rain" -> R.color.rain
+                    "Thunderstorm"-> R.color.thunderstorm
+                    "Snow"-> R.color.snow
+                    else -> R.color.atmosphere
+                })
+            )
+
+
+
         holder.itemView.findViewById<TextView>(R.id.dayTemp).text = (item.main.temp_max-273).toInt().toString()
         holder.itemView.findViewById<TextView>(R.id.nightTemp).text = (item.main.temp_min-273).toInt().toString()
         val timeText =
