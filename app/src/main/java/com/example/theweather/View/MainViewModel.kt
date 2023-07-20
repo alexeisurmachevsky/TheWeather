@@ -11,6 +11,7 @@ import com.example.theweather.models.WModel
 import com.example.theweather.models.fdf
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 

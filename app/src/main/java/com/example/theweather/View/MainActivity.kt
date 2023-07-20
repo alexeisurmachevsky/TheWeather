@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,8 @@ import com.example.theweather.R
 import com.example.theweather.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlin.concurrent.thread
+
 
 class MainActivity : AppCompatActivity(), LifecycleOwner {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -34,8 +37,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         mService = Common.retrofitService
 
-        binding.rvWeather.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+        binding.rvWeather.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        viewModel.getForecastByCurrentLocation(this, fusedLocationProviderClient, this, mService)
 
         viewModel.currentWModel.observe(this) {
             binding.wmodel = it
@@ -90,6 +94,12 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         viewModel.currentWList.observe(this) {
             if (it != null)
                 binding.rvWeather.adapter = rvAdapter(it)
+
+            binding.loading.animate().apply {
+                duration = 300
+                alpha(0f)
+            }
+
         }
 
 

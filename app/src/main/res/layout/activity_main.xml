@@ -14,13 +14,106 @@
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple_200">
+        android:background="@drawable/atmosphere_bg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:translationZ="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/frontOfLoading"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:translationZ="1dp"
+                app:layout_constraintBottom_toBottomOf="@+id/backOfLoading"
+                app:layout_constraintEnd_toEndOf="@+id/backOfLoading"
+                app:layout_constraintStart_toStartOf="@+id/backOfLoading"
+                app:layout_constraintTop_toTopOf="@+id/backOfLoading"
+                android:src="@drawable/loading"
+                tools:srcCompat="@tools:sample/avatars"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/backOfLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWeather"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="44dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="0.614" />
+
+        <LinearLayout
+            android:id="@+id/app_bar_linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/search_city"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_search"
+                android:drawableStart="@drawable/ic_round_search_24"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/black"
+                android:hint="Search city"
+                android:imeOptions="actionSearch"
+                android:inputType="text|textAutoComplete"
+                android:padding="10dp"
+                android:textColor="@color/black">
+
+            </EditText>
+
+
+            <ImageView
+                android:id="@+id/current_location"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="10dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_my_location_24">
+
+            </ImageView>
+
+
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
             android:layout_marginEnd="16dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
@@ -68,62 +161,6 @@
                 android:textSize="29sp" />
 
         </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:id="@+id/app_bar_linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <EditText
-                android:id="@+id/search_city"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_search"
-                android:drawableStart="@drawable/ic_round_search_24"
-                android:drawablePadding="20dp"
-                android:drawableTint="@color/black"
-                android:hint="Search city"
-                android:imeOptions="actionSearch"
-                android:inputType="text|textAutoComplete"
-                android:padding="10dp"
-                android:textColor="@color/black">
-
-            </EditText>
-
-
-            <ImageView
-                android:id="@+id/current_location"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="10dp"
-                android:background="?selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_baseline_my_location_24">
-
-            </ImageView>
-
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvWeather"
-            android:layout_width="372dp"
-            android:layout_height="191dp"
-            android:layout_marginBottom="44dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            app:layout_constraintVertical_bias="0.614" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
