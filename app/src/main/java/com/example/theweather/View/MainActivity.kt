@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -16,14 +15,13 @@ import com.example.theweather.R
 import com.example.theweather.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity(), LifecycleOwner {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var mService: RetrofitServieces
     lateinit var binding: ActivityMainBinding
-    lateinit var viewModel:MainViewModel
+    lateinit var viewModel: MainViewModel
 
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,56 +36,68 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         mService = Common.retrofitService
 
 
-        binding.rvWeather.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvWeather.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         viewModel.getForecastByCurrentLocation(this, fusedLocationProviderClient, this, mService)
 
         viewModel.currentWModel.observe(this) {
             binding.wmodel = it
-            binding.ivCurrentWeather.setImageResource(
-                if (viewModel.wModel == null)
-                    R.drawable.ic_unknown
-                else {
-                    when (viewModel.wModel!!.weather[0].main) {
-                        "Clear" -> R.drawable.ic_clear_day
-                        "Clouds" -> R.drawable.ic_few_clouds
-                        "Rain" -> R.drawable.ic_shower_rain
-                        "Thunderstorm" -> R.drawable.ic_storm_weather
-                        "Snow" -> R.drawable.ic_snow_weather
-                        else -> R.drawable.ic_unknown
-                    }
-                }
-            )
-            binding.mainLayout.background = resources.getDrawable(
-                if (viewModel.wModel == null)
-                    R.drawable.unknown_bg
-                else {
-                    when (viewModel.wModel!!.weather[0].main) {
-                        "Clear" -> R.drawable.clear_bg
-                        "Clouds" -> R.drawable.clouds_bg
-                        "Rain" -> R.drawable.rain_bg
-                        "Thunderstorm" -> R.drawable.thunderstrom_bg
-                        "Snow" -> R.drawable.snow_bg
-                        else -> R.drawable.atmosphere_bg
-                    }
-                }
-            )
 
-            binding.cardView.setCardBackgroundColor(
-                resources.getColor(
-                    if (viewModel.wModel == null)
-                        R.color.atmosphere
-                    else {
-                        when (viewModel.wModel!!.weather[0].main) {
-                            "Clear" -> R.color.clear
-                            "Clouds" -> R.color.clouds
-                            "Rain" -> R.color.rain
-                            "Thunderstorm" -> R.color.thunderstorm
-                            "Snow" -> R.color.snow
-                            else -> R.color.atmosphere
-                        }
+
+            val ivcw: Int
+            val ml: Int
+            val cv: Int
+            if (viewModel.wModel == null) {
+                ivcw = R.drawable.ic_unknown
+                ml = R.drawable.unknown_bg
+                cv = R.color.atmosphere
+            } else {
+                when (viewModel.wModel!!.weather[0].main) {
+                    "Clear" -> {
+                        ivcw = R.drawable.ic_clear_day
+                        ml = R.drawable.clear_bg
+                        cv = R.color.clear
                     }
-                )
-            )
+
+                    "Clouds" -> {
+                        ivcw = R.drawable.ic_few_clouds
+                        ml = R.drawable.clouds_bg
+                        cv = R.color.clouds
+
+                    }
+
+                    "Rain" -> {
+                        ivcw = R.drawable.ic_shower_rain
+                        ml = R.drawable.rain_bg
+                        cv = R.color.rain
+
+                    }
+
+                    "Thunderstorm" -> {
+                        ivcw = R.drawable.ic_storm_weather
+                        ml = R.drawable.thunderstrom_bg
+                        cv = R.color.thunderstorm
+
+                    }
+
+                    "Snow" -> {
+                        ivcw = R.drawable.ic_snow_weather
+                        ml = R.drawable.snow_bg
+                        cv = R.color.snow
+
+                    }
+
+                    else -> {
+                        ivcw = R.drawable.ic_unknown
+                        ml = R.drawable.atmosphere_bg
+                        cv = R.color.atmosphere
+
+                    }
+                }
+            }
+            binding.ivCurrentWeather.setImageResource(ivcw)
+            binding.mainLayout.background = resources.getDrawable(ml)
+            binding.cardView.setCardBackgroundColor(resources.getColor(cv))
 
         }
 
@@ -104,15 +114,19 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
 
         binding.currentLocation.setOnClickListener {
-            viewModel.getForecastByCurrentLocation(this, fusedLocationProviderClient, this, mService)
+            viewModel.getForecastByCurrentLocation(
+                this,
+                fusedLocationProviderClient,
+                this,
+                mService
+            )
         }
 
-        binding.searchCity.setOnClickListener{
+        binding.searchCity.setOnClickListener {
             binding.searchCity.setOnKeyListener { _, i, keyEvent ->
-                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP)
-                {
+                if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                     val cityName = binding.searchCity.text.toString()
-                    viewModel.getForecastByCityName( mService, cityName)
+                    viewModel.getForecastByCityName(mService, cityName)
                     return@setOnKeyListener true
                 }
                 false

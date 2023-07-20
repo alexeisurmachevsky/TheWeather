@@ -11,7 +11,6 @@ import com.example.theweather.models.WModel
 import com.example.theweather.models.fdf
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -47,6 +46,8 @@ class MainViewModel : ViewModel() {
         GlobalScope.launch {
             gw.getCityInfo(cityName)
         }.join()
+        if(gw.cityInfo?.size == 0)
+            return@runBlocking
         getCurrentWeather(mService, gw.cityInfo?.get(0)?.lat!!, gw.cityInfo?.get(0)?.lon!!)
         getAllDayForecast(mService, gw.cityInfo?.get(0)?.lat!!, gw.cityInfo?.get(0)?.lon!!)
     }

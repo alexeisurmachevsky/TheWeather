@@ -15,7 +15,7 @@ class GetWeather(val mService: RetrofitServieces) {
     var cityInfo: CityInfo?=null
 
      suspend fun getCityInfo(cityName: String)= runBlocking{
-        val url = "geo/1.0/direct?q=${cityName}&limit=1&appid=02df2d182c5922677742982922a5c7ee"
+        val url = "geo/1.0/direct?q=${cityName}&limit=1&appid={key}"//INPUT YOUR KEY WITHOUT {}
 
         val gci = launch{
             try {
@@ -30,7 +30,7 @@ class GetWeather(val mService: RetrofitServieces) {
     }
 
     suspend fun getCurrentWeather(lat: Double, lon: Double) = runBlocking{
-       val url = "data/2.5/weather?lat=$lat&lon=$lon&appid=02df2d182c5922677742982922a5c7ee"
+       val url = "data/2.5/weather?lat=$lat&lon=$lon&appid={key}"//INPUT YOUR KEY WITHOUT {}
 
        val gcw =  launch {
             try {
@@ -44,7 +44,7 @@ class GetWeather(val mService: RetrofitServieces) {
     }
 
      suspend fun getAllDayForecast(lat: Double, lon: Double) = runBlocking{
-        val url = "data/2.5/forecast?lat=$lat&lon=$lon&appid=02df2d182c5922677742982922a5c7ee"
+        val url = "data/2.5/forecast?lat=$lat&lon=$lon&appid={key}"//INPUT YOUR KEY WITHOUT {}
 
         val gaf =  launch {
             try {
